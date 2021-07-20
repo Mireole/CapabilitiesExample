@@ -12,7 +12,7 @@ apply plugin: 'net.minecraftforge.gradle'
 
 group = 'fr.mireole'
 version = '1.0-SNAPSHOT'
-archivesBaseName = 'capabilitiesExample'
+archivesBaseName = 'capabilitiesexample'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
 
