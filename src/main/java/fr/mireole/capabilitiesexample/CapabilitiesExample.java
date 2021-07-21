@@ -2,6 +2,7 @@ package fr.mireole.capabilitiesexample;
 
 import fr.mireole.capabilitiesexample.capability.PowerCapability;
 import fr.mireole.capabilitiesexample.capability.provider.PlayerPowerProvider;
+import fr.mireole.capabilitiesexample.events.PowerModificationsHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,7 +26,7 @@ import java.util.stream.Collectors;
 public class CapabilitiesExample {
     public static final String MOD_ID = "capabilitiesexample";
     // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public CapabilitiesExample() {
         // Register the setup method for modloading
@@ -39,7 +40,8 @@ public class CapabilitiesExample {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(PlayerPowerProvider.class);
+        MinecraftForge.EVENT_BUS.register(PowerCapability.class);
+        MinecraftForge.EVENT_BUS.register(PowerModificationsHandler.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
