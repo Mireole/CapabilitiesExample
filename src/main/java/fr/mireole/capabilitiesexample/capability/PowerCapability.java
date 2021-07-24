@@ -2,8 +2,11 @@ package fr.mireole.capabilitiesexample.capability;
 
 import fr.mireole.capabilitiesexample.CapabilitiesExample;
 import fr.mireole.capabilitiesexample.capability.provider.PlayerPowerProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.loot.LootTable;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.Direction;
@@ -12,7 +15,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 public class PowerCapability{
 
@@ -45,10 +50,19 @@ public class PowerCapability{
     @SubscribeEvent
     public static void attachToEntities(AttachCapabilitiesEvent<Entity> event)
     {
-        if(event.getObject() instanceof PlayerEntity && !event.getObject().world.isRemote)
+        if(event.getObject() instanceof PlayerEntity)
         {
-            PlayerPowerProvider provider = new PlayerPowerProvider();
+            IPowerCapability capability;
+            if(event.getObject() instanceof ServerPlayerEntity){
+                capability = new PlayerPowerStorage((ServerPlayerEntity)event.getObject());
+            }
+            else {
+                capability = PowerCapability.POWER_CAPABILITY.getDefaultInstance();
+            }
+
+            PlayerPowerProvider provider = new PlayerPowerProvider(capability);
             event.addCapability(CAP_KEY, provider);
         }
     }
+
 }

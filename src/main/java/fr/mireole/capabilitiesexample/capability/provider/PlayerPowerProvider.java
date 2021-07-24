@@ -12,9 +12,12 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class PlayerPowerProvider implements ICapabilitySerializable<INBT> {
-    private IPowerCapability holder = PowerCapability.POWER_CAPABILITY.getDefaultInstance();
+    private IPowerCapability holder;
     private final LazyOptional<IPowerCapability> lazyOptional = LazyOptional.of(() -> this.holder);
 
+    public PlayerPowerProvider(IPowerCapability holder) {
+        this.holder = holder;
+    }
 
     @Nonnull
     @Override

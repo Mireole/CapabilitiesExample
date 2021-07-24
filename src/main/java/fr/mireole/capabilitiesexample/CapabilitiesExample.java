@@ -2,7 +2,9 @@ package fr.mireole.capabilitiesexample;
 
 import fr.mireole.capabilitiesexample.capability.PowerCapability;
 import fr.mireole.capabilitiesexample.capability.provider.PlayerPowerProvider;
+import fr.mireole.capabilitiesexample.events.OverlaysRenderer;
 import fr.mireole.capabilitiesexample.events.PowerModificationsHandler;
+import fr.mireole.capabilitiesexample.network.NetworkInit;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 public class CapabilitiesExample {
     public static final String MOD_ID = "capabilitiesexample";
     // Directly reference a log4j logger.
-    public static final Logger LOGGER = LogManager.getLogger();
+    private static final Logger LOGGER = LogManager.getLogger();
 
     public CapabilitiesExample() {
         // Register the setup method for modloading
@@ -42,11 +44,14 @@ public class CapabilitiesExample {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(PowerCapability.class);
         MinecraftForge.EVENT_BUS.register(PowerModificationsHandler.class);
+        MinecraftForge.EVENT_BUS.register(OverlaysRenderer.class);
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         // some preinit code
         PowerCapability.register();
+
+        NetworkInit.init();
 
         LOGGER.info("HELLO FROM PREINIT");
         LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
