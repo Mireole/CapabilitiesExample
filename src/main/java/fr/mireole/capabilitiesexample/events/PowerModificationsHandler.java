@@ -1,6 +1,5 @@
 package fr.mireole.capabilitiesexample.events;
 
-import fr.mireole.capabilitiesexample.CapabilitiesExample;
 import fr.mireole.capabilitiesexample.capability.IPowerCapability;
 import fr.mireole.capabilitiesexample.capability.PowerCapability;
 import fr.mireole.capabilitiesexample.capability.PowerStorage;

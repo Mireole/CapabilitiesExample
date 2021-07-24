@@ -7,7 +7,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
 
 public class PlayerPowerStorage extends PowerStorage {
 
-    private ServerPlayerEntity player;
+    private final ServerPlayerEntity player;
 
     public PlayerPowerStorage(ServerPlayerEntity player) {
         this.player = player;
