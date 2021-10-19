@@ -2,14 +2,14 @@ package fr.mireole.capabilitiesexample.capability;
 
 import fr.mireole.capabilitiesexample.network.NetworkInit;
 import fr.mireole.capabilitiesexample.network.PowerPacket;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 
 public class PlayerPowerStorage extends PowerStorage {
 
-    private final ServerPlayerEntity player;
+    private final ServerPlayer player;
 
-    public PlayerPowerStorage(ServerPlayerEntity player) {
+    public PlayerPowerStorage(ServerPlayer player) {
         this.player = player;
     }
 
@@ -17,7 +17,7 @@ public class PlayerPowerStorage extends PowerStorage {
     public void setPower(int value) {
         super.setPower(value);
 
-        if(player.connection != null) {
+        if (player.connection != null) {
             player.getCapability(PowerCapability.POWER_CAPABILITY).ifPresent(capability -> NetworkInit.CHANNEL.send(
                     PacketDistributor.PLAYER.with(() -> this.player), new PowerPacket(capability)
             ));

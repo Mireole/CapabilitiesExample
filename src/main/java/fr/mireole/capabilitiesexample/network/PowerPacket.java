@@ -3,9 +3,9 @@ package fr.mireole.capabilitiesexample.network;
 import fr.mireole.capabilitiesexample.capability.IPowerCapability;
 import fr.mireole.capabilitiesexample.capability.PowerCapability;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fmllegacy.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
@@ -21,11 +21,11 @@ public class PowerPacket {
         this.power = instance.getPower();
     }
 
-    public static void encode(PowerPacket packet, PacketBuffer buffer){
+    public static void encode(PowerPacket packet, FriendlyByteBuf buffer){
         buffer.writeInt(packet.power);
     }
 
-    public static PowerPacket decode(PacketBuffer buffer){
+    public static PowerPacket decode(FriendlyByteBuf buffer){
         return new PowerPacket(buffer.readInt());
     }
 
